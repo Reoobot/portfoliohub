@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}PortfolioHub{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+  <nav>
+    <a href="/">Inicio</a>
+    <a href="/portfolios/">Portafolios</a>
+    <a href="/jobs/">Empleos</a>
+    <a href="/accounts/login/">Login</a>
+  </nav>
+
+  <main>
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  <footer>
+    <p style="text-align: center; padding: 1rem;">&copy; 2025 PortfolioHub</p>
+  </footer>
+</body>
+</html>

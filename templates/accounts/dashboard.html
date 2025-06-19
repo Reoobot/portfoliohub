@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<h1>Bienvenido al dashboard, {{ user.username }}</h1>
+
+<h2>Hola {{ user.username }}!</h2>
+<p>Bienvenido a tu panel de usuario.</p>
+<a href="{% url 'logout' %}">Cerrar sesión</a>
+{% endblock %}
