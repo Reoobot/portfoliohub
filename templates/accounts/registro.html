@@ -3,11 +3,85 @@
 {% block title %}Registro{% endblock %}
 
 {% block content %}
+  <style>
+    .messages {
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+
+    .messages li {
+      list-style: none;
+      padding: 12px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .messages .error {
+      background-color: #800505;
+      border: 1px solid #b22222;
+    }
+
+    .messages .success {
+      background-color: #2e7d32;
+      border: 1px solid #1b5e20;
+    }
+
+    .messages .info {
+      background-color: #0277bd;
+      border: 1px solid #01579b;
+    }
+
+    .messages .warning {
+      background-color: #ff9800;
+      border: 1px solid #ef6c00;
+    }
+
+    form, form * {
+      color: #000 !important;
+    }
+
+    ul.errorlist {
+      background-color: #ffd6d6;
+      border: 1px solid #ff0000;
+      color: #000 !important;
+      padding: 10px;
+      margin-bottom: 15px;
+      list-style-type: none;
+    }
+  </style>
+
   <h2>Formulario de Registro</h2>
-  <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit">Registrarse</button>
-  </form>
-<p>¿Ya tienes cuenta? <a href="{% url 'login' %}">Inicia sesión</a></p>
+
+  {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li class="{{ message.tags }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+<form method="post">
+  {% csrf_token %}
+  {% for field in form %}
+    <div class="form-field">
+      {{ field.label_tag }}
+      {{ field }}
+      {% if field.help_text %}
+        <small>{{ field.help_text }}</small>
+      {% endif %}
+      {% if field.errors %}
+        <ul class="errorlist">
+          {% for error in field.errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+  {% endfor %}
+  <button type="submit">Registrarse</button>
+</form>
+
+  <p>¿Ya tienes cuenta? <a href="{% url 'login' %}">Inicia sesión</a></p>
 {% endblock %}

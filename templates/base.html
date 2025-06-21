@@ -13,7 +13,13 @@
     <a href="/jobs/">Empleos</a>
     <a href="/accounts/login/">Login</a>
   </nav>
-
+ {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li class="{{ message.tags }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}    
   <main>
     {% block content %}
     {% endblock %}

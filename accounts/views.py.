@@ -1,0 +1,51 @@
+.from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from django.db import connection
+from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
+from .forms import RegistroForm
+
+
+# ⚠️ VISTA DE LOGIN VULNERABLE A SQL INJECTION (para práctica)
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        print(f"Intento login: {username} / {password}")
+
+        # VULNERABILIDAD: concatenación directa sin sanitización
+        query = f"SELECT id FROM users_vulnerables WHERE username = '{username}' AND password = '{password}'"
+        with connection.cursor() as cursor:
+            cursor.execute(query)
+            row = cursor.fetchone()
+
+        print(f"Resultado query: {row}")
+
+        if row:
+            print("Login exitoso, redirigiendo...")
+            return redirect('/accounts/dashboard/')
+        else:
+            print("Credenciales inválidas")
+            return HttpResponse("Credenciales inválidas", status=401)
+
+    return render(request, 'accounts/login.html')
+
+
+# ✅ REGISTRO NORMAL (guardar usuario en DB)
+def registro(request):
+    if request.method == 'POST':
+        form = RegistroForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('/accounts/dashboard/')
+    else:
+        form = RegistroForm()
+    return render(request, 'accounts/registro.html', {'form': form})
+
+
+# ✅ DASHBOARD (requiere login)
+@login_required
+def dashboard(request):
+    return render(request, 'accounts/dashboard.html')

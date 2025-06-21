@@ -7,8 +7,10 @@
 
 from django.shortcuts import render
 
-def home(request):
-    imagenes = [
+#def home(request):
+  #imagenes
+def obtener_imagenes():
+   return  [
        "https://images.unsplash.com/photo-1522542550221-31fd19575a2d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cG9ydGZvbGlvfGVufDB8fDB8fHww",
        "https://images.unsplash.com/file-1707883121023-8e3502977149image?w=416&dpr=2&auto=format&fit=crop&q=60",
        "https://images.unsplash.com/photo-1674027326254-88c960d8e561?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHBhZ2luYXMlMjB3ZWJ8ZW58MHx8MHx8fDA%3D",
@@ -20,4 +22,12 @@ def home(request):
        "https://images.unsplash.com/photo-1605889551411-d5088704edbe?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHBhZ2luYXMlMjBvbmxpbmV8ZW58MHx8MHx8fDA%3D",
 
     ]
+#    return render(request, 'home.html', {'imagenes': imagenes})
+
+def home(request):
+    imagenes = obtener_imagenes()
     return render(request, 'home.html', {'imagenes': imagenes})
+
+def portafolios(request):
+    imagenes = obtener_imagenes()
+    return render(request, 'portfolios.html', {'imagenes': imagenes})
