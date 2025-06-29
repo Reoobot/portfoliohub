@@ -10,10 +10,16 @@ RUN apt-get update && apt-get install -y \
     default-libmysqlclient-dev \
     default-mysql-client \
     gcc \
+    netcat-traditional \
     && pip install --no-cache-dir -r requirements.txt
 
 
 
 COPY . .
 
-CMD ["gunicorn", "portfoliohub.wsgi:application", "--bind", "0.0.0.0:8000"]
+# Copiar el script de entrada
+COPY entrypoint.sh /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
+
+# Usar el script como punto de entrada
+ENTRYPOINT ["/app/entrypoint.sh"]
