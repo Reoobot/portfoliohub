@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 from django.contrib.messages import constants as messages
-
+import os
 
 MESSAGE_TAGS = {
     messages.DEBUG: 'debug',
@@ -41,7 +41,7 @@ DEBUG = True
 
 #Configuracion propia de seguridad
 #DEBUG = True
-ALLOWED_HOSTS = ['192.168.0.24','localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 #SECURE_HSTS_SECONDS = 31536000
 #SECURE_SSL_REDIRECT = True
@@ -123,7 +123,7 @@ DATABASES = {
         'NAME': 'portfoliohub_db',
         'USER': 'naticarlosalexis',
         'PASSWORD': 'NatiCarlosAlexis2025!',
-        'HOST': 'localhost',
+        'HOST': 'db',
         'PORT': '3306',
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
@@ -177,6 +177,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",  
 ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 

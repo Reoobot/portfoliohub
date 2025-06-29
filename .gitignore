@@ -1,0 +1,25 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+
+# Django static files
+staticfiles/
+
+# Environment files
+.env
+
+# SQLite (por si acaso)
+*.sqlite3
+
+# Docker
+*.log
+*.pid
+*.sock
+
+# VSCode / IDEs
+.vscode/
+.idea/
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
